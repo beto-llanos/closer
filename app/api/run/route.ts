@@ -5,6 +5,7 @@ import type { RunEvent, Lead } from "@/lib/types";
 import { generateQueries, fetchCandidates } from "@/lib/prospector";
 import { qualifyLeads, researchLead, writeOutreach } from "@/lib/agents";
 import { SEED_SIGNALS } from "@/lib/demo";
+import { checkRateLimit } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,11 +18,23 @@ export async function POST(req: NextRequest) {
   const product = (body.product || "").trim();
   const icp = (body.icp || "").trim();
 
+  const ip =
+    (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+  const rate = checkRateLimit(ip);
+
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
       const send = (e: RunEvent) =>
         controller.enqueue(encoder.encode(`data: ${JSON.stringify(e)}\n\n`));
+
+      if (!rate.ok) {
+        send({ type: "error", message: rate.reason || "Rate limit reached." });
+        controller.close();
+        return;
+      }
 
       try {
         if (!product) throw new Error("Describe your product to start prospecting.");

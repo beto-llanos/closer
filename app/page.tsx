@@ -309,9 +309,13 @@ function LeadCard({
         {lead.seed && <span className="badge sample">sample</span>}
       </div>
       <div className="title">
-        <a href={lead.url} target="_blank" rel="noopener noreferrer">
-          {lead.title}
-        </a>
+        {lead.seed ? (
+          lead.title
+        ) : (
+          <a href={lead.url} target="_blank" rel="noopener noreferrer">
+            {lead.title}
+          </a>
+        )}
       </div>
       <div className="author">{lead.author}</div>
 
