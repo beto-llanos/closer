@@ -5,6 +5,7 @@ import type { Candidate } from "@/lib/types";
 import { jsonCall } from "@/lib/anthropic";
 import { searchHackerNews } from "@/lib/sources/hackernews";
 import { searchReddit } from "@/lib/sources/reddit";
+import { searchStackExchange } from "@/lib/sources/stackexchange";
 
 const PROSPECTOR_SYSTEM = `You are CLOSER's Prospector — an expert B2B prospecting strategist.
 Given a product and its ideal customer profile (ICP), produce web search queries that surface
@@ -74,7 +75,9 @@ export async function fetchCandidates(queries: string[]): Promise<ProspectResult
   const jobs: Promise<Candidate[]>[] = [];
   for (const q of queries) {
     jobs.push(searchHackerNews(q, 6));
-    jobs.push(searchReddit(q, 6));
+    jobs.push(searchReddit(q, 6)); // only yields if REDDIT_CLIENT_ID/SECRET set
+    jobs.push(searchStackExchange(q, "softwarerecs", 5));
+    jobs.push(searchStackExchange(q, "webmasters", 5));
   }
   const settled = await Promise.allSettled(jobs);
   const all: Candidate[] = [];
