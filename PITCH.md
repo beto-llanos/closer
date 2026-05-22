@@ -12,7 +12,7 @@
 
 **Your AI SDR finds buyers raising their hand — before your competitor does.**
 
-🔗 Live: _<railway link>_ · 💻 Code: github.com/beto-llanos/closer
+🔗 Live: https://closer-production-e0e3.up.railway.app · 💻 Code: github.com/beto-llanos/closer
 
 ---
 
@@ -120,4 +120,4 @@ Product + ICP
 
 Multi-agent workflow automation that any industry can use, today.
 
-🔗 _<railway link>_  ·  💻 github.com/beto-llanos/closer
+🔗 https://closer-production-e0e3.up.railway.app  ·  💻 github.com/beto-llanos/closer

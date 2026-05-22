@@ -4,7 +4,7 @@
 
 Built for the **International AI Agents Hackathon** (multi-agent workflow automation).
 
-🔗 **Live demo:** _(deployed on Railway — link in submission)_
+🔗 **Live demo:** https://closer-production-e0e3.up.railway.app
 
 ---
 

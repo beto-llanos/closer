@@ -89,9 +89,10 @@ export async function qualifyLeads(
       disqualified: r.disqualified,
     });
   }
-  // Real buyers only: drop sellers/spam and low-intent chatter, sort by intent.
+  // Real buyers only: drop sellers/spam, off-ICP (low fit), and low-intent
+  // chatter — never show a lead the SDR would be told not to contact.
   return leads
-    .filter((l) => !l.disqualified && l.intent >= QUALIFY_THRESHOLD)
+    .filter((l) => !l.disqualified && l.fit !== "low" && l.intent >= QUALIFY_THRESHOLD)
     .sort((a, b) => b.intent - a.intent);
 }
 
