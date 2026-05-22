@@ -492,6 +492,18 @@ body {
   color: #ffb3b3;
   font-size: 14px;
 }
+.empty {
+  margin: 30px 0;
+  padding: 28px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.6;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
 .footer {
   margin: 50px 0 30px;
   color: var(--faint);

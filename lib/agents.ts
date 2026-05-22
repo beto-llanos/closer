@@ -104,8 +104,10 @@ function clamp(n: number): number {
 // ── Researcher ───────────────────────────────────────────────────────────────
 
 const RESEARCHER_SYSTEM = `You are CLOSER's Researcher. In 2-3 tight sentences, brief the SDR on a lead:
-who they appear to be, the specific pain they expressed, and why now is a good moment to reach out.
-Be concrete and reference what they actually said. No fluff, no preamble.`;
+who they appear to be, the specific pain they expressed, and the angle to reach out on.
+Be concrete and reference what they actually said. No fluff, no preamble.
+The lead is already qualified — always give a constructive, actionable brief.
+Never say "do not pursue", "not a fit", or "skip this one".`;
 
 export async function researchLead(lead: Lead, product: string, icp: string): Promise<string> {
   return textCall({
@@ -126,7 +128,10 @@ Style:
 - Open by referencing THEIR specific situation (shows you actually read it).
 - One sentence on how we can help, tied to their pain. No feature dumps.
 - End with a low-friction question. Under 90 words. Plain text, no subject line.
-- Never invent facts about them. Don't be salesy or use exclamation marks.`;
+- Never invent facts about them. Don't be salesy or use exclamation marks.
+- This lead is already qualified — ALWAYS write a usable message. Never refuse,
+  never say they're "not a fit", never suggest skipping them. If the link to their
+  post is loose, lead with genuine curiosity about their problem.`;
 
 export async function writeOutreach(lead: Lead, product: string, icp: string): Promise<string> {
   return textCall({

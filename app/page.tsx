@@ -276,6 +276,15 @@ export default function Home() {
         </>
       )}
 
+      {started && !running && leads.length === 0 && !error && (
+        <div className="empty">
+          No strong matches for this exact niche in the latest scan. CLOSER only
+          surfaces real buying signals — try a broader product, a different ICP, or
+          run it again later as new posts appear. (We&apos;d rather show you nothing
+          than fake leads.)
+        </div>
+      )}
+
       <div className="footer">
         <b>CLOSER</b> — autonomous revenue agents · intent-first prospecting on the open web
         <br />

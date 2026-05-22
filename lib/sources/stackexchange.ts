@@ -32,6 +32,19 @@ function stripHtml(s: string): string {
   return decode(s.replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim();
 }
 
+// The Prospector writes Reddit/HN-style intent queries ("how to sync inventory…").
+// Stack Exchange search matches noun phrases better, so strip the intent prefixes.
+function seQuery(q: string): string {
+  const cleaned = q
+    .replace(
+      /^(how (do i|to|can i|does one)|anyone|any way to|best way to|need help( with)?|looking for|frustrated with|recommend (a|an|me)?|is there (a|an)?|what('s| is) the best)\s+/i,
+      "",
+    )
+    .replace(/\?/g, "")
+    .trim();
+  return cleaned || q;
+}
+
 export async function searchStackExchange(
   query: string,
   site: string,
@@ -41,7 +54,7 @@ export async function searchStackExchange(
     const u = new URL(ENDPOINT);
     u.searchParams.set("order", "desc");
     u.searchParams.set("sort", "relevance");
-    u.searchParams.set("q", query);
+    u.searchParams.set("q", seQuery(query));
     u.searchParams.set("site", site);
     u.searchParams.set("pagesize", String(limit));
     u.searchParams.set("filter", "withbody");
