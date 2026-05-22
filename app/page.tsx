@@ -289,6 +289,10 @@ export default function Home() {
         <b>CLOSER</b> — autonomous revenue agents · intent-first prospecting on the open web
         <br />
         Built for the International AI Agents Hackathon · multi-agent workflow automation
+        <br />
+        <a href="/pitch" style={{ color: "var(--accent)", textDecoration: "none" }}>
+          View the pitch deck →
+        </a>
       </div>
     </div>
   );
