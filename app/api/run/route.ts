@@ -64,7 +64,8 @@ export async function POST(req: NextRequest) {
           const sampleLeads = await qualifyLeads(SEED_SIGNALS, product, icp);
           const seen = new Set(qualified.map((l) => l.id));
           for (const sl of sampleLeads) if (!seen.has(sl.id)) qualified.push(sl);
-          qualified.sort((a, b) => b.intent - a.intent);
+          // Real live leads first, samples after — then by intent.
+          qualified.sort((a, b) => (a.seed ? 1 : 0) - (b.seed ? 1 : 0) || b.intent - a.intent);
         }
 
         for (const lead of qualified) send({ type: "lead", lead });

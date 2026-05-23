@@ -78,7 +78,8 @@ export default function Home() {
         setLeads((prev) => {
           const next = prev.filter((l) => l.id !== e.lead.id);
           next.push(e.lead);
-          next.sort((a, b) => b.intent - a.intent);
+          // Real live leads always rank above sample signals, then by intent.
+          next.sort((a, b) => (a.seed ? 1 : 0) - (b.seed ? 1 : 0) || b.intent - a.intent);
           return next;
         });
         break;
